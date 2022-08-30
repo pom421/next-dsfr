@@ -2,7 +2,31 @@ import Link from "next/link"
 import * as React from "react"
 import { LinkButton } from "./Button"
 
-type Props = {}
+type HeaderServiceProps = { title?: string; precisionTitle?: string }
+
+export const HeaderService: React.FC<HeaderServiceProps> = ({
+  title = "Nom du site / service",
+  precisionTitle = "baseline - précisions sur l‘organisation",
+}) => {
+  return (
+    <div className="fr-header__service">
+      <a href="/" title={`Accueil - ${title}`}>
+        <p className="fr-header__service-title">{title}</p>
+      </a>
+      <p className="fr-header__service-tagline">{precisionTitle}</p>
+    </div>
+  )
+}
+
+export const HeaderButtonGroup: React.FC<unknown> = ({ children }) => {
+  return (
+    <ul className="fr-btns-group">
+      {children.map((elt, index) => (
+        <li key={index}>{elt}</li>
+      ))}
+    </ul>
+  )
+}
 
 export const Header: React.FC<Props> = ({}) => {
   return (
@@ -14,9 +38,9 @@ export const Header: React.FC<Props> = ({}) => {
               <div className="fr-header__brand-top">
                 <div className="fr-header__logo">
                   <p className="fr-logo">
-                    Intitulé
+                    République
                     <br />
-                    officiel
+                    Française
                   </p>
                 </div>
                 <div className="fr-header__navbar">
@@ -32,40 +56,22 @@ export const Header: React.FC<Props> = ({}) => {
                   </button>
                 </div>
               </div>
-              <div className="fr-header__service">
-                <a
-                  href="/"
-                  title="Accueil - [À MODIFIER - Nom du site / service] - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
-                >
-                  <p className="fr-header__service-title">Nom du site / service</p>
-                </a>
-                <p className="fr-header__service-tagline">baseline - précisions sur l‘organisation</p>
-              </div>
+              <HeaderService title="Index Egapro" precisionTitle="Ministère des Affaires Sociales" />
             </div>
             <div className="fr-header__tools">
               <div className="fr-header__tools-links">
-                <ul className="fr-btns-group">
-                  <li>
-                    <LinkButton href="creer" leftIcon="add-circle-line">
-                      Créer un espace
-                    </LinkButton>
-                  </li>
-                  <li>
-                    <LinkButton href="creer" leftIcon="lock-line">
-                      Se connecter
-                    </LinkButton>
-                  </li>
-                  <li>
-                    <LinkButton href="creer" leftIcon="account-line">
-                      S’enregistrer
-                    </LinkButton>
-                  </li>
-                  <li>
-                    <Link href="/aide" passHref>
-                      <LinkButton leftIcon="account-line">Aller sur une autre page</LinkButton>
-                    </Link>
-                  </li>
-                </ul>
+                <HeaderButtonGroup>
+                  <LinkButton href="https://www.yahoo.fr" leftIcon="add-circle-line">
+                    Aller sur page externe
+                  </LinkButton>
+                  <LinkButton leftIcon="lock-line">Se connecter</LinkButton>
+                  <LinkButton href="creer" leftIcon="account-line">
+                    S’enregistrer
+                  </LinkButton>
+                  <Link href="/aide" passHref>
+                    <LinkButton leftIcon="account-line">Aller sur une page interne xx</LinkButton>
+                  </Link>
+                </HeaderButtonGroup>
               </div>
             </div>
           </div>
